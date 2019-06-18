@@ -17,8 +17,10 @@ services:
      image: nginx:alpine
      ports:
        - "80:80"
+       - "443:443"
      volumes:
        - ./conf:/etc/nginx/conf.d:ro
+       - ./cert:/etc/ssl/private:ro
        - ./staticfiles:/usr/staticfiles
      depends_on:
        - web
