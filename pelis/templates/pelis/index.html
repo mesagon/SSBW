@@ -1,0 +1,26 @@
+{% extends "pelis/main.html" %}
+
+{% block title %}Restaurantator{% endblock %}
+{% block content %}
+
+<script type="text/javascript"
+  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js">
+</script>
+
+<h1>Aplicación de películas</h1>
+<hr>
+<p>Bienvenido. Aquí podrá almacenar, consultar, modificar y eliminar información de películas.</p>
+<p>Para realizar consultas sobre las películas que ya tenemos almacenadas vaya a la opción Peliculas en la barra de navegación.</p>
+<p>Para añadir una nueva película vaya a la opción Añadir Película en la barra de navegación.</p>
+<p>Para modificar una película, debe acceder a la información individual de la misma mediante una consulta y pulsar en el botón de "Editar"</p>
+<p>Para eliminar una película, debe acceder a la información individual de la misma mediante una consulta y pulsar en el botón de "Eliminar"</p>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      $("#op1").css("background-color","#4286f4");
+      $("#op1").addClass("nav-item active");
+
+  });
+</script>
+
+{% endblock %}

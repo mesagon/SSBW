@@ -1,0 +1,17 @@
+{% extends "pelis/main.html" %}
+
+{% block content %}
+<h2>Consulta de películas por actor</h2>
+
+<form action="actorConsultado" method="get">
+
+	<div class="form-group col-md-3">
+			<label for="inputActor">Actor:</label>
+			<input type="text" class="form-control" name="actor" id="actor" aria-describedby="actorHelp" placeholder="Enter actor"/>
+	</div>
+
+<button type="submit" class="btn btn-primary">Submit</button>
+
+</form>
+
+{% endblock %}

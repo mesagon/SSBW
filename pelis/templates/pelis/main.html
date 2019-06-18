@@ -1,0 +1,106 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Jekyll v3.8.5">
+    <title>Starter Template · Bootstrap</title>
+
+    <script type="text/javascript"
+			src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js">
+		</script>
+
+<!-- Bootstrap core CSS -->
+<link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+
+<!-- Font awesome-->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <style>
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+    </style>
+    <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{% static 'css/starter-template.css' %}">
+  </head>
+  <body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <a class="navbar-brand" href="{% url 'home' %}">Películas</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="menu">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item" id="op1">
+        <a class="nav-link" href="{% url 'home' %}">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item" id="op2">
+        <a class="nav-link" href="{% url 'consulta' %}">Peliculas</a>
+      </li>
+
+      {% if user.is_staff %}
+      <li class="nav-item" id="op3">
+        <a class="nav-link" href="{% url 'crear' %}" tabindex="-1" >Añadir Película</a>
+      </li>
+      {% endif %}
+
+      {% if user.is_authenticated %}
+        <li class="nav-item" id="op4">
+          <a class="nav-link" href="{% url 'account_logout' %}" tabindex="-1" >Logout</a>
+        </li>
+      {% else %}
+        <li class="nav-item" id="op4">
+          <a class="nav-link" href="{% url 'account_login' %}" tabindex="-1" >Login</a>
+        </li>
+      {% endif %}
+    </ul>
+    <button class="btn btn-secondary my-2 my-sm-0" type="submit" id="btnModoNocturno">Modo nocturno</button>
+  </div>
+</nav>
+
+{% block content %}
+{% endblock %}
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    pulsado = false;
+
+    $("#btnModoNocturno").click(function () {
+
+      if(pulsado){
+
+          pulsado = false;
+
+          $("body").css("background-color","white");
+          $("body").css("color","black");
+
+      }
+      else{
+
+          pulsado = true;
+
+          $("body").css("background-color","#434e60");
+          $("body").css("color","white");
+
+      }
+    });
+  });
+</script>
+</body></html>

@@ -1,0 +1,21 @@
+<html>
+	<head>
+		<title> Películas consultadas por {{ tipoConsulta }}: {{ consulta }} </title>
+	</head>
+
+	<body>
+
+		Películas consultadas por {{ tipoConsulta }}: {{ consulta }}
+
+		<table>
+			<tr>
+				<th>Título</th> <th> Anio </th>
+			</tr>
+			{% for p in peliculas %}
+				<tr>
+					<td> {{ p.title }} </td> <td> {{ p.year }}</td>
+				</tr>
+			{% endfor %}
+		</table>
+	</body>
+</html>	

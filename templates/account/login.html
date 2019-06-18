@@ -1,0 +1,39 @@
+{% extends "account/base.html" %}
+
+{% load i18n %}
+{% load socialaccount %}
+{% block head_title %}{% trans "Sign In" %}{% endblock %}
+
+{% block content %}
+
+<script type="text/javascript"
+  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js">
+</script>
+
+<h2>Login</h2>
+
+<p>Por favor, inicia sesión con tu cuenta de usuario de GitHub. <a href="{% provider_login_url 'github' %}">Iniciar sesión</a>.</p>
+<p>O inicia sesión con tu cuenta de usuario</p>
+
+<form class="login" method="POST" action="{% url 'account_login' %}">
+  {% csrf_token %}
+  <div class="form-group col-md-3">
+    {% for field in form %}
+      {{ field.label_tag}}<br>
+      {{ field }}<br>
+    {% endfor %}
+  {% if redirect_field_value %}
+    <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
+  {% endif %}
+  <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
+  <button class="btn btn-primary" type="submit">{% trans "Sign In" %}</button>
+</form>
+
+<script type="text/javascript">
+  $(document).ready(function(){
+      $("#op4").css("background-color","#4286f4");
+      $("#op4").addClass("nav-item active");
+
+  });
+</script>
+{% endblock %}

@@ -1,0 +1,195 @@
+{% extends "pelis/main.html" %}
+{% block content %}
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<title> {{ title }} </title>
+
+    <style>
+
+			.contenedor{
+
+					display: grid;
+					grid-template-rows: 40%;
+					grid-template-columns: 20% 25%;
+			}
+
+			.imagen{
+
+				 	height: 20%;
+
+			}
+
+			.infoPelicula{
+
+					padding-top: 15%;
+					font-family: Helvetica, Times, serif;
+					line-height: 1.6;
+			}
+
+			.titulo{
+
+					font-family: Helvetica, Times, serif;
+			}
+
+			.imagen{
+
+					padding-left: 7%;
+			}
+
+			.boton{
+
+				padding-left: 5%;
+			}
+
+			.shadow {
+  			-moz-box-shadow:    3px 3px 5px 6px #ccc;
+  			-webkit-box-shadow: 3px 3px 5px 6px #ccc;
+  			box-shadow:         3px 3px 5px 6px #ccc;
+			}
+
+
+    </style>
+
+	</head>
+  <body>
+
+		<div class="contenedor">
+			<div class="imagen">
+					<div>
+						<h4> {{ title }} </h4>
+					<div>
+					 	<img src="{{ poster }}" alt="Imagen no disponible">
+					</div>
+					<div>
+						<div>
+							<button id="btnLike" style="width:50px" type="submit" class="btn btn-default btn-lg" onclick="like_pelicula('{{id}}');">
+  							<i class="fa fa-thumbs-o-up"></i>
+							</button>
+							<button id="btnDislike" style="width:50px" type="submit" class="btn btn-default btn-lg" onclick="dislike_pelicula('{{id}}');">
+  							<i class="fa fa-thumbs-o-down"></i>
+							</button>
+
+								<i id="likes" class="shadow">Likes: {{ likes }}</i>
+
+						</div>
+
+					 </div>
+					{% if user.is_staff %}
+					<div class="boton">
+						<form method="get">
+							<button type="submit" formaction="{% url 'editar' id %}" class="btn btn-primary">Editar</button>
+							<button type="submit" formaction="{% url 'eliminar' id %}" class="btn btn-danger">Eliminar</button>
+						</form>
+					</div>
+					{% endif %}
+				</div>
+			</div>
+			<div class = "infoPelicula">
+				<div>
+					<b>Géneros:</b> {{ genres }}
+				</div>
+				<div>
+				</div>
+				<b>Director:</b> {{ director }}.
+				<div>
+					<b>Escritores:</b> {{ writers }}
+				</div>
+				<div>
+					<b>Actores:</b> {{ actors }}
+				</div>
+				<div>
+					<b>Sinopsis:</b> {{ plot }}
+				</div>
+				<div>
+					<b>Año:</b> {{ year }}
+				</div>
+				<div>
+					<b>Duración:</b> {{ runtime }} min.
+				</div>
+				<div>
+					<b>País:</b> {{ countries }}
+				</div>
+				<div>
+					<b>Nota (metacritic):</b> {{ metacritic }}.
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript">
+		$(document).ready(function()
+			{
+
+				$("#op2").css("background-color","#4286f4");
+				$("#op2").addClass("nav-item active");
+
+		});
+
+		function like_pelicula(id_pelicula)
+		{
+			$.ajax({
+		    // la URL para la petición.
+		    url : '/peliculas/likeDislike',
+
+		    // la información a enviar
+		    // (también es posible utilizar una cadena de datos)
+		    data : { id : id_pelicula, like : 1 },
+
+		    // especifica si será una petición POST o GET
+		    type : 'POST',
+
+		    // el tipo de información que se espera de respuesta
+		    dataType : 'json',
+
+		    // código a ejecutar si la petición es satisfactoria;
+		    // la respuesta es pasada como argumento a la función
+		    success : function(json) {
+		        $("#likes").html(json.likes);
+		    },
+
+		    // código a ejecutar si la petición falla;
+		    // son pasados como argumentos a la función
+		    // el objeto de la petición en crudo y código de estatus de la petición
+		    error : function(xhr, status) {
+		        console-log('Disculpe, existió un problema');
+	    	},
+			});
+		}
+
+		function dislike_pelicula(id_pelicula)
+		{
+			$.ajax({
+		    // la URL para la petición.
+		    url : '/peliculas/likeDislike',
+
+		    // la información a enviar
+		    // (también es posible utilizar una cadena de datos)
+		    data : { id : id_pelicula, like : -1 },
+
+		    // especifica si será una petición POST o GET
+		    type : 'POST',
+
+		    // el tipo de información que se espera de respuesta
+		    dataType : 'json',
+
+		    // código a ejecutar si la petición es satisfactoria;
+		    // la respuesta es pasada como argumento a la función
+		    success : function(json) {
+		        $("#likes").html(json.likes);
+		    },
+
+		    // código a ejecutar si la petición falla;
+		    // son pasados como argumentos a la función
+		    // el objeto de la petición en crudo y código de estatus de la petición
+		    error : function(xhr, status) {
+		        console-log('Disculpe, existió un problema');
+	    	},
+			});
+		}
+
+
+		</script>
+	</body>
+</html>
+{% endblock %}

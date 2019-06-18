@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <!-- Bootstrap -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+  <!-- Typeahead -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-typeahead/2.10.6/jquery.typeahead.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-typeahead/2.10.6/jquery.typeahead.js"></script>
+
+  <title>
+    Ejercicio de frameworks CSS
+  </title>
+</head>
+<body>
+  <div class="container">
+
+    {% if user.is_authenticated %}
+    <div class="col-md-12">
+      <p>Logeado como {{ user.get_username }}. <a href="https://localhost/accounts/logout/">Logout</a></p>
+    </div>
+    {% else %}
+    <div class="col-md-12">
+      <p>No has iniciado sesión. <a href="https://localhost/accounts/login/">Login</a></p>
+    </div>
+    {% endif %}
+
+    <button id="btn-nocturno" type="button" class="btn btn-default" style="background-color:lightgrey;">Modo nocturno</button>
+
+    <div class="col-md-12">
+
+      <br>
+
+      <div class="row">
+        <h2>Buscador de películas</h2>
+      </div>
+
+      <br><hr><br>
+
+      <form class="form-group" action="pelis" method="get">
+        <label for="actor"><b>Nombre del actor</b></label>
+        <input type="text" class="form-control" id="actor" name="actor">
+        <br>
+        <button type="submit" class="btn btn-primary" id="search-btn">Buscar</button>
+      </form>
+
+
+      <hr>
+
+      <form class="form-group" action="pelis" method="get">
+        <label for="title"><b>Título</b></label>
+        <div class="typeahead__container">
+          <div class="typeahead__field">
+            <div class="typeahead__query">
+              <input class="js-typeahead-country_v1" name="title" type="search" autocomplete="off">
+            </div>
+            <div class="typeahead__button">
+              <button type="submit">
+                <i class="typeahead__search-icon"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <br>
+        <button type="submit" class="btn btn-primary" id="search-btn">Buscar por título</button>
+      </form>
+
+      <hr>
+
+    </div>
+  </div>
+
+  <script>
+  $(document).ready(function()
+  {
+    activated = false;
+
+    $( "#btn-nocturno" ).click(function()
+    {
+      activated = !activated;
+
+      if (activated)
+      {
+        $("body").css("background-color", "#15202B");
+        $("body").css("color", "white");
+        $("hr").css("border-color", "white");
+      }
+      else
+      {
+        $("body").css("background-color", "white");
+        $("body").css("color", "black");
+        $("hr").css("border-color", "lightgrey");
+      }
+    });
+
+    $.typeahead({
+      input: '.js-typeahead-country_v1',
+      order: "desc",
+      source: {
+        data: [
+          {{ movies_list|safe }}
+        ]
+      },
+      callback: {
+        onInit: function (node) {
+          console.log('Typeahead Initiated on ' + node.selector);
+        }
+      }
+    });
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+{% extends "pelis/main.html" %}
+
+{% block content %}
+
+<script type="text/javascript"
+  src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js">
+</script>
+
+<h1>Consulta de películas por {{ tipoConsulta }}</h1>
+	<table id="tabla" class="table">
+	  <thead class="thead-dark">
+	    <tr>
+	      <th scope="col">Título</th>
+	      <th scope="col">Año</th>
+				<th scope="col">Géneros</th>
+				<th scope="col">Director</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+
+		{% for p in peliculas %}
+			<tr>
+				<td> <a href= "{% url 'info_de' p.id %}">  {{ p.title }} </a> </td> <td> {{ p.year }}</td> <td> {{ p.genres }}</td> <td> {{ p.director }}</td>
+			</tr>
+		{% endfor %}
+	  </tbody>
+	</table>
+
+	<script type="text/javascript">
+	  $(document).ready(function(){
+	      $("#op2").css("background-color","#4286f4");
+	      $("#op2").addClass("nav-item active");
+
+				activado = false;
+
+		    $("#btnModoNocturno").click(function () {
+
+		      if(activado){
+
+		          activado = false;
+
+		          $("#tabla").css("color","black");
+		      }
+		      else{
+
+		        	activado = true;
+
+		        	$("#tabla").css("color","white");
+
+		      }
+		    });
+	  });
+
+
+	</script>
+
+{% endblock %}
