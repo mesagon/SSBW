@@ -199,7 +199,7 @@ def crear_pelicula(request):
 		if(form.is_valid()):
 
 			form.save()
-			return(redirect("/peliculas/"))
+			return(redirect("/peliculas/consulta"))
 	else:
 
 		form = forms.PelisForm()
