@@ -145,7 +145,7 @@
 		    // código a ejecutar si la petición es satisfactoria;
 		    // la respuesta es pasada como argumento a la función
 		    success : function(json) {
-		        $("#likes").html(json.likes);
+		        $("#likes").html("Likes: ").append(json.likes);
 		    },
 
 		    // código a ejecutar si la petición falla;
@@ -176,7 +176,7 @@
 		    // código a ejecutar si la petición es satisfactoria;
 		    // la respuesta es pasada como argumento a la función
 		    success : function(json) {
-		        $("#likes").html(json.likes);
+		        $("#likes").html("Likes: ").append(json.likes);
 		    },
 
 		    // código a ejecutar si la petición falla;

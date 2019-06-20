@@ -142,7 +142,7 @@ def resultadoConsulta(request):
 
 		context["peliculas"].append({"id":str(p.id),"title":p.title,"year":p.year,"genres":p.genres,"director":p.director,})
 
-	return(render(request,"pelis/tabla_actor.html",context))
+	return(render(request,"pelis/tabla_consulta.html",context))
 
 # Función para mostrar la información de una película concreta cuyo id de la base de datos de
 # mongo se recibe como argumento.
